@@ -5,6 +5,12 @@ on:
 jobs:
   build-image:
     runs-on: ubuntu-latest
+    env:
+      DIB_IMAGE_CACHE: /tmp/dib_cache
+      DIB_RELEASE: focal
+      ELEMENTS_PATH: elements
+      ARCH: amd64
+      OUTPUT_FILE: ubuntu.qcow2
     steps:
       - uses: actions/checkout@v3
         name: install apt dependencies
@@ -17,15 +23,13 @@ jobs:
           python-version: "3.9"
           cache: "pip" # caching pip dependencies
       - run: pip install -r requirements.txt
+      - name: cache DIB builds
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.DIB_IMAGE_CACHE }}
+          key: ${{ runner.os }}-dib-${{ hashFiles('elements/**') }}
+          restore-keys: ${{ runner.os }}-dib-
       - name: build the image
-        env:
-          DIB_RELEASE: focal
-          # DIB_PYTHON_VERSION: 3
-          OUTPUT_FILE: ubuntu.qcow2
-          ARCH: amd64
-          ELEMENTS_PATH: elements
-          # LIBGUESTFS_BACKEND: direct
-          # ELEMENTS: "vm block-device-efi dhcp-all-interfaces pip-and-virtualenv"
         run: |
           disk-image-create \
           vm \
