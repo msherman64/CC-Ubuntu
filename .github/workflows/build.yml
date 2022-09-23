@@ -42,4 +42,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: ubuntu.qcow2
-          path: "{{ env.OUTPUT_FILE }}"
+          path: ${{ env.OUTPUT_FILE }}
