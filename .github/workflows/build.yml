@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        name: install apt dependencies
+      - uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: qemu-utils qemu-user-static binfmt-support kpartx u-boot-tools
+          version: 1.0
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
