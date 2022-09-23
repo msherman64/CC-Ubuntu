@@ -8,6 +8,7 @@ jobs:
     env:
       DIB_IMAGE_CACHE: /tmp/dib_cache
       DIB_RELEASE: focal
+      DIB_CLOUD_INIT_DATASOURCES: OpenStack
       ELEMENTS_PATH: elements
       ARCH: amd64
       OUTPUT_FILE: ubuntu.qcow2
