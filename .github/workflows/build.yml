@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.DIB_IMAGE_CACHE }}
-          key: ${{ runner.os }}-dib-${{ hashFiles('elements/**') }}
+          key: ${{ runner.os }}-dib-${{ hashFiles('VERSION') }}
           restore-keys: ${{ runner.os }}-dib-
       - name: build the image
         run: |
