@@ -12,4 +12,20 @@ jobs:
           python-version: "3.9"
           cache: "pip" # caching pip dependencies
       - run: pip install -r requirements.txt
-      - run: disk-image-create
+      - name: build the image
+        env:
+          DIB_RELEASE: focal
+          # DIB_PYTHON_VERSION: 3
+          OUTPUT_FILE: ubuntu.qcow2
+          ARCH: amd64
+          ELEMENTS_PATH: elements
+          # LIBGUESTFS_BACKEND: direct
+          # ELEMENTS: "vm block-device-efi dhcp-all-interfaces pip-and-virtualenv"
+        run: |
+          disk-image-create \
+          vm \
+          base \
+          block-device-efi \
+          ubuntu \
+          -a $ARCH \
+          -o $OUTPUT_FILE
