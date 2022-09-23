@@ -39,3 +39,7 @@ jobs:
           ubuntu \
           -a $ARCH \
           -o $OUTPUT_FILE
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ubuntu.qcow2
+          path: "{{ env.OUTPUT_FILE }}"
